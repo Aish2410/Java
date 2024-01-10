@@ -1,0 +1,39 @@
+
+
+<div class="container">
+    <div class="row mt-3">
+
+        <div class="col-12 card">
+            <h1>Applied Applications</h1> <hr>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Degree</th>
+                        <th scope="col">Percent</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Admission Date</th>
+                        <th scope="col">Admission Status</th>
+                        <th scope="col">Course</th>
+                        <th scope="col">Fees</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td>{{application?.applicantName }}</td>
+                        <td>{{application?.applicantMobileNumber}}</td>
+                        <td>{{application?.applicantDegree }}</td>
+                        <td>{{application?.applicantGraduationPercent | number}}</td>
+                        <td>{{application?.email}}</td>
+                        <td>{{application?.admission?.admissionDate}}</td>
+                        <td>{{application?.admission?.admissionStatus}}</td>
+                        <td>{{application?.admission?.course?.couresName}}</td>
+                        <td>{{application?.admission?.course?.couresFees | currency:"INR":"symbol"}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    
+        </div>
+    </div>
+</div>

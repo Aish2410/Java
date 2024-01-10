@@ -1,0 +1,136 @@
+<div class="register_page">
+    <div class="cantainer">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="card">
+                    <h1>Register new staff</h1>
+                    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+
+                        <div class="row">
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" ngModel name="username"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="exampleInputEmail1"
+                                        required aria-describedby="emailHelp">
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Name</label>
+                                    <input type="text" class="form-control" ngModel name="name">
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Mobile Number</label>
+                                    <input type="number" class="form-control" ngModel name="mobileNumber">
+                                </div>
+                            </div>
+                           
+
+                            <div *ngIf="registerForm.form.value.role === 'ACM'">
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label for="adminName">Admin Name</label>
+                                        <input type="text" class="form-control" ngModel name="adminName" id="adminName"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div class="form-group">
+                                        <label for="adminContact">Admin Contact</label>
+                                        <input type="text" class="form-control" ngModel name="adminContact"
+                                            id="adminContact" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" ngModel name="password"
+                                        id="exampleInputPassword1" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 card">
+    
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Username/Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let staff of staffList">
+                        <td>{{staff.staffId }}</td>
+                        <td>{{staff.email }}</td>
+                        <td>{{staff.role}}</td>
+                        <td>{{staff.active ? 'ACTIVE' : 'DEACTIVETED'}}</td>
+                        
+                        <td>
+                            <button class="btn btn-outline-danger me-2"
+                                (click)="deleteUser(staff.staffId)">Delete</button>
+                            <button class="btn btn-outline-success" (click)="openPopup(staff)">View</button>
+    
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Course Details </h4>
+            </div>
+            <div class="modal-body">
+                <form (submit)="onUpdate()">
+
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="email" class="form-control" [(ngModel)]="selectedUser.email "
+                                    name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" [(ngModel)]="selectedUser.password"
+                                    name="couresFees" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-primary mt-3">Update</button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closePopup()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

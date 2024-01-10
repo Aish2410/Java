@@ -1,0 +1,4 @@
+- Middleware removed
+
+-- Remaining components
+- HomeComponent

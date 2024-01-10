@@ -1,0 +1,3 @@
+INSERT INTO roles(name) VALUES('APPLICANT');
+INSERT INTO roles(name) VALUES('STAFF');
+INSERT INTO roles(name) VALUES('ACM');

@@ -1,0 +1,65 @@
+<div class="mt-4">
+    <div class="cantainer">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="card">
+                    <h1>Apply for course</h1>
+                    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
+                        <div class="row">
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label>Applicant Name</label>
+                                    <input type="text" class="form-control" ngModel name="applicantName" required>
+                                </div>
+                            </div>
+                            <!-- <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" ngModel name="email"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="exampleInputEmail1"
+                                        required aria-describedby="emailHelp">
+                                </div>
+                            </div> -->
+
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Applicant Degree</label>
+                                    <input type="text" class="form-control" ngModel name="applicantDegree"
+                                       required>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label >Applicant Graduation Percent</label>
+                                    <input type="number" class="form-control" ngModel name="applicantGraduationPercent"
+                                         required>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label>Applicant Mobile Number</label>
+                                    <input type="number" class="form-control" ngModel name="applicantMobileNumber" required>
+                                </div>
+                            </div>
+                            
+
+                            <div class="col-12 mt-3">
+                                <div class="form-group">
+                                    <label for="roleId">Course</label>
+                                    <select class="form-control" ngModel name="courseId" required>
+                                        <option [value]="course.courseId" *ngFor="let course of courses">{{course.couresName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

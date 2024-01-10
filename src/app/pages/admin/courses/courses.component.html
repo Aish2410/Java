@@ -1,0 +1,149 @@
+<div class="container courses_page">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <h1>Register new courses</h1>
+                <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+    
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label >Course Name</label>
+                                <input type="text" class="form-control" ngModel name="couresName"
+                                     required >
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course Fee</label>
+                                <input type="number" class="form-control" ngModel name="couresFees" required>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course Start Date</label>
+                                <input type="date" class="form-control" ngModel name="couresStartDate" required>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course End Date</label>
+                                <input type="date" class="form-control" ngModel name="couresEndDate" required>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course Duration (In Month)</label>
+                                <input type="text" class="form-control"  readonly [value]="getDifferenceDate(registerForm.form.value.couresStartDate,registerForm.form.value.couresEndDate)" >
+                            </div>
+                        </div>
+
+                        
+                        
+    
+                        
+    
+                        
+                    </div>
+    
+                    <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 card">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">Duration (Month)</th>
+                        <th scope="col">Fees</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let course of courseList">
+                        <td>{{course?.courseId }}</td>
+                        <td>{{course?.couresName}}</td>
+                        <td>{{course?.couresStartDate | date}}</td>
+                        <td>{{course?.couresEndDate | date}}</td>
+                        <td>{{course?.couresDuration}}</td>
+                        <td>{{course?.couresFees | currency:"INR":"symbol"}}</td>
+                        <td>
+                            <button class="btn btn-outline-danger me-2" (click)="deleteCourse(course.courseId)" >Delete</button>
+                            <button class="btn btn-outline-success" (click)="openPopup(course)">View</button>
+                           
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Course Details </h4>
+            </div>
+            <div class="modal-body">
+                <form (submit)="onUpdate()">
+                
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course Name</label>
+                                <input type="text" class="form-control"  [(ngModel)]="selectedCourse.couresName" name="couresName" required>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course Fee</label>
+                                <input type="number" class="form-control" [(ngModel)]="selectedCourse.couresFees" name="couresFees" required>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course Start Date</label>
+                                <input type="date" class="form-control" [(ngModel)]="selectedCourse.couresStartDate" name="couresStartDate" required>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course End Date</label>
+                                <input type="date" class="form-control" [(ngModel)]="selectedCourse.couresEndDate" name="couresEndDate" required>
+                            </div>
+                        </div>
+                
+                
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Course Duration (In Month)</label>
+                                <input type="text" class="form-control" readonly
+                                    [value]="getDifferenceDate(selectedCourse.couresStartDate,selectedCourse.couresEndDate)">
+                            </div>
+                        </div>
+                
+                    </div>
+                
+                    <button type="submit" class="btn btn-outline-primary mt-3">Update</button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closePopup()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <h1>Add Applicant</h1>
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <div class="form-group">
+                            <label>Applicant Name</label>
+                            <input type="text" class="form-control" ngModel name="applicantName" required>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" ngModel name="email"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="exampleInputEmail1" required
+                                aria-describedby="emailHelp">
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Applicant Degree</label>
+                            <input type="text" class="form-control" ngModel name="applicantDegree" required>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="form-group">
+                            <label>Applicant Graduation Percent</label>
+                            <input type="number" class="form-control" ngModel name="applicantGraduationPercent"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <div class="form-group">
+                            <label>Applicant Mobile Number</label>
+                            <input type="number" class="form-control" ngModel name="applicantMobileNumber" required>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 mt-3">
+                        <div class="form-group">
+                            <label for="roleId">Course</label>
+                            <select class="form-control" ngModel name="courseId" required>
+                                <option [value]="course.courseId" *ngFor="let course of courses">{{course.couresName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-4">
+
+            <select class="form-control"  (change)="onCourseChange($event)"  >
+                <option value="#">--SELECT--</option>
+                <option [value]="course.courseId" *ngFor="let course of courses">{{course.couresName}}
+                </option>
+            </select>
+
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12 card">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Degree</th>
+                <th scope="col">Percent</th>
+                <th scope="col">Email</th>
+                <th scope="col">Admission Date</th>
+                <th scope="col">Admission Status</th>
+                <th scope="col">Course</th>
+                <th scope="col">Fees</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let application of admissionList">
+                <td>{{application?.applicantName }}</td>
+                <td>{{application?.applicantMobileNumber}}</td>
+                <td>{{application?.applicantDegree }}</td>
+                <td>{{application?.applicantGraduationPercent | number}}</td>
+                <td>{{application?.email}}</td>
+                <td>{{application?.admission?.admissionDate}}</td>
+                <td>{{application?.admission?.admissionStatus}}</td>
+                <td>{{application?.admission?.course?.couresName}}</td>
+                <td>{{application?.admission?.course?.couresFees | currency:"INR":"symbol"}}</td>
+                <td>
+                    <!-- <button class="btn btn-outline-danger me-2" (click)="deleteCourse(course.courseId)">Delete</button> -->
+                    <button class="btn btn-outline-success" (click)="openPopup(application)">View</button>
+    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    </div>
+</div>
+
+<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Course Details </h4>
+            </div>
+            <div class="modal-body">
+                <form (submit)="onUpdate()">
+
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label for="roleId">Status</label>
+                                <select class="form-control" [(ngModel)]="selectedCourse.admissionStatus" name="role" required>
+                                    <option [value]="status" *ngFor="let status of statusList">{{status}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Applicant Degree</label>
+                                <input type="text" class="form-control" [(ngModel)]="selectedCourse.applicantDegree" name="applicantDegree"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Applicant Graduation Percent</label>
+                                <input type="number" class="form-control" [(ngModel)]="selectedCourse.applicantGraduationPercent" name="applicantGraduationPercent" required>
+                            </div>
+                        </div>
+                       
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Applicant Mobile Number</label>
+                                <input type="number" class="form-control" [(ngModel)]="selectedCourse.applicantMobileNumber"
+                                    name="applicantMobileNumber" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Applicant Email</label>
+                                <input type="email" class="form-control" [(ngModel)]="selectedCourse.email"
+                                    name="email" required>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label>Applicant Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="selectedCourse.applicantName"
+                                    name="applicantName" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <div class="form-group">
+                                <label for="roleId">Course</label>
+                                <select class="form-control" [(ngModel)]="selectedCourse.courseId" name="courseId" required>
+                                    <option [value]="course.courseId" *ngFor="let course of courses">{{course.couresName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-primary mt-3">Update</button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closePopup()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 
+

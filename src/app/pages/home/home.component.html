@@ -1,0 +1,18 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>Cources list</h1><hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mt-2" *ngFor="let course of courseList">
+            <div class="card">
+                <h3 class="course_name">{{course.couresName}}</h3>
+                <p class="course_price">Price : <b>{{course.couresFees| currency:"INR":"symbol"}}</b> </p>
+                <p class="course_info">Start Date : <b>{{course.couresStartDate | date}}</b></p>
+                <p class="course_info">End Date : <b>{{course.couresEndDate | date}}</b></p>
+                <p class="course_info">Duration <b>{{course.couresDuration}} Months</b></p>
+            </div>
+        </div>
+    </div>
+</div>

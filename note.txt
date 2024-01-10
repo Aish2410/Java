@@ -1,0 +1,10 @@
+- admin
+brus@gmail.com 12345
+- Applicant
+john@gmail.com 12345
+stark@gmail.com 12345
+- Staff
+peter@gmail.coom 12345
+
+
+-- Applicaiton update for applicant need to confirm
